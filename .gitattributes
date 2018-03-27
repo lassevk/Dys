@@ -1,0 +1,51 @@
+# Other Text Files
+*.md            text eol=crlf
+*.bat           text eol=crlf
+read.me         text eol=crlf
+*.ini           text eol=crlf
+*.licenses      text eol=crlf
+*.linq          text eol=crlf diff=csharp
+*.manifest      text eol=crlf diff=html
+*.nuspec        text eol=crlf diff=html
+
+# Source Code Files
+*.cs            text eol=crlf diff=csharp
+*.pas           text eol=crlf diff=pascal
+*.dpr           text eol=crlf diff=pascal
+*.html          text eol=crlf diff=html
+*.cshtml        text eol=crlf diff=html
+*.aspx          text eol=crlf diff=html
+*.asax          text eol=crlf diff=html
+*.asmx          text eol=crlf diff=html
+*.css           text eol=crlf diff=css
+*.less          text eol=crlf diff=css
+*.js            text eol=crlf diff=java
+*.ts            text eol=crlf diff=java
+*.py            text eol=crlf diff=python
+*.sql           text eol=crlf
+*.xsl           text eol=crlf diff=html
+
+# Special Files
+*.controller    text eol=crlf merge=binary
+*.dictionary    binary
+*.iss           text eol=crlf
+*.ruleset       text eol=crlf diff=html
+*.svg           binary
+
+# Project and Solution Files
+*.sln           text eol=crlf
+*.csproj        text eol=crlf
+*.vbproj        text eol=crlf
+*.vcxproj       text eol=crlf
+*.vcproj        text eol=crlf
+*.dbproj        text eol=crlf
+*.fsproj        text eol=crlf
+*.lsproj        text eol=crlf
+*.wixproj       text eol=crlf
+*.modelproj     text eol=crlf
+*.sqlproj       text eol=crlf
+*.wmaproj       text eol=crlf
+*.xproj         text eol=crlf
+*.props         text eol=crlf
+*.filters       text eol=crlf
+*.vcxitems      text eol=crlf
