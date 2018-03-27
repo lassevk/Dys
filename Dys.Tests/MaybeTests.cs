@@ -106,5 +106,28 @@ namespace Dys.Tests
 
             Assert.That(output, Is.EqualTo(expected));
         }
+
+        [Test]
+        public void GetValueOrDefault_WhenEmpty_ReturnsDefaultValue()
+        {
+            var maybe = new Maybe<int>();
+
+            var output = maybe.GetValueOrDefault();
+
+            Assert.That(output, Is.EqualTo(0));
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(42)]
+        public void GetValueOrDefault_WhenInitializedWithValue_ReturnsValue(int input)
+        {
+            var maybe = new Maybe<int>(input);
+
+            var output = maybe.GetValueOrDefault();
+
+            Assert.That(output, Is.EqualTo(input));
+        }
     }
 }

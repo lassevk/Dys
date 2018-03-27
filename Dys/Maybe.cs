@@ -26,5 +26,8 @@ namespace Dys
 
             return _HasValue ? new Maybe<TResult>(selector(_Value)) : new Maybe<TResult>();
         }
+
+        public T GetValueOrDefault()
+            => _HasValue ? _Value : default(T);
     }
 }
