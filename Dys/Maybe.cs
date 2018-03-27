@@ -1,19 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dys
 {
     public struct Maybe<T>
     {
         private readonly bool _HasValue;
+        private readonly T _Value;
 
         public Maybe(T value)
         {
             _HasValue = true;
+            _Value = value;
         }
 
         public bool HasValue
             => _HasValue;
+
+        public T Value
+            => _HasValue ? _Value : throw new InvalidOperationException("Maybe object must have a value.");
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 
 using NUnit.Framework;
 
@@ -22,6 +21,24 @@ namespace Dys.Tests
             var maybe = new Maybe<int>(42);
 
             Assert.That(maybe.HasValue, Is.True);
+        }
+
+        [Test]
+        public void Value_WhenEmpty_ThrowsInvalidOperationException()
+        {
+            var maybe = new Maybe<int>();
+
+            Assert.Throws<InvalidOperationException>(() => _ = maybe.Value);
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(42)]
+        public void Value_WhenInitializedWithValue_ReturnsValue(int input)
+        {
+            var maybe = new Maybe<int>(input);
+
+            Assert.That(maybe.Value, Is.EqualTo(input));
         }
     }
 }
