@@ -40,5 +40,23 @@ namespace Dys.Tests
 
             Assert.That(maybe.Value, Is.EqualTo(input));
         }
+
+        [Test]
+        public void Select_NullSelector_ThrowsArgumentNullException()
+        {
+            var maybe = new Maybe<int>();
+
+            Assert.Throws<ArgumentNullException>(() => maybe.Select<string>(null));
+        }
+
+        [Test]
+        public void Select_WhenEmpty_ReturnsEmptyMaybe()
+        {
+            var maybe = new Maybe<int>();
+
+            var output = maybe.Select(i => i.ToString());
+
+            Assert.That(output.HasValue, Is.False);
+        }
     }
 }

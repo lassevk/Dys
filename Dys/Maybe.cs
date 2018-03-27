@@ -18,5 +18,13 @@ namespace Dys
 
         public T Value
             => _HasValue ? _Value : throw new InvalidOperationException("Maybe object must have a value.");
+
+        public Maybe<TResult> Select<TResult>(Func<T, TResult> selector)
+        {
+            if (selector == null)
+                throw new ArgumentNullException(nameof(selector));
+
+            return _HasValue ? new Maybe<TResult>(selector(_Value)) : new Maybe<TResult>();
+        }
     }
 }
