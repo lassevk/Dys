@@ -1,6 +1,9 @@
 ﻿using System;
 
 using NUnit.Framework;
+// ReSharper disable AssignmentIsFullyDiscarded
+
+// ReSharper disable PossibleNullReferenceException
 
 namespace Dys.Tests
 {
@@ -72,7 +75,7 @@ namespace Dys.Tests
                 return i.ToString();
             }
 
-            var output = maybe.Select(func);
+            maybe.Select(func);
 
             Assert.That(wasCalled, Is.False);
         }
@@ -90,7 +93,7 @@ namespace Dys.Tests
                 return i.ToString();
             }
 
-            var output = maybe.Select(func);
+            maybe.Select(func);
 
             Assert.That(wasCalled, Is.True);
         }
@@ -151,6 +154,70 @@ namespace Dys.Tests
             var output = maybe.GetValueOrFallback(-1);
 
             Assert.That(output, Is.EqualTo(input));
+        }
+
+        [Test]
+        public void GetHashCode_WhenEmpty_ReturnsZero()
+        {
+            var maybe = new Maybe<int>();
+
+            var output = maybe.GetHashCode();
+
+            Assert.That(output, Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GetHashCode_WhenInitializedWithNull_ReturnsZero()
+        {
+            var maybe = new Maybe<string>(null);
+
+            var output = maybe.GetHashCode();
+
+            Assert.That(output, Is.EqualTo(0));
+        }
+
+        [Test]
+        [TestCase("TEST")]
+        public void GetHashCode_WhenInitializedWithValue_ReturnsSameValueAsGetHashCodeForThatValue(string input)
+        {
+            var maybe = new Maybe<string>(input);
+            var expected = input.GetHashCode();
+
+            var output = maybe.GetHashCode();
+
+            Assert.That(output, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Equals_NullValue_ReturnsFalse()
+        {
+            var maybe = new Maybe<int>();
+
+            var output = maybe.Equals(null);
+
+            Assert.That(output, Is.False);
+        }
+        
+        [Test]
+        public void EqualsObject_TwoMaybesInitializedToSameValue_ReturnsTrue()
+        {
+            var maybe1 = new Maybe<string>("A");
+            var maybe2 = new Maybe<string>("A");
+
+            var output = maybe1.Equals((object)maybe2);
+
+            Assert.That(output, Is.True);
+        }
+
+        [Test]
+        public void EqualsMaybe_TwoMaybesInitializedToSameValue_ReturnsTrue()
+        {
+            var maybe1 = new Maybe<string>("A");
+            var maybe2 = new Maybe<string>("A");
+
+            var output = maybe1.Equals(maybe2);
+
+            Assert.That(output, Is.True);
         }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Dys
 {
-    public struct Maybe<T>
+    public struct Maybe<T> : IEquatable<Maybe<T>>
     {
         private readonly bool _HasValue;
         private readonly T _Value;
@@ -32,5 +33,22 @@ namespace Dys
 
         public T GetValueOrFallback(T fallbackValue)
             => _HasValue ? _Value : fallbackValue;
+
+        public override int GetHashCode()
+            => _HasValue ? _Value?.GetHashCode() ?? 0 : 0;
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+
+            return obj is Maybe<T> maybe && Equals(maybe);
+        }
+
+        public bool Equals(Maybe<T> other)
+        {
+            // ReSharper disable once PossibleNullReferenceException
+            return _HasValue == other._HasValue && EqualityComparer<T>.Default.Equals(_Value, other._Value);
+        }
     }
 }
