@@ -129,5 +129,28 @@ namespace Dys.Tests
 
             Assert.That(output, Is.EqualTo(input));
         }
+
+        [Test]
+        public void GetValueOrFallback_WhenEmpty_ReturnsFallbackValue()
+        {
+            var maybe = new Maybe<int>();
+
+            var output = maybe.GetValueOrFallback(17);
+
+            Assert.That(output, Is.EqualTo(17));
+        }
+
+        [Test]
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(42)]
+        public void GetValueOrFallback_WhenInitializedWithValue_ReturnsValue(int input)
+        {
+            var maybe = new Maybe<int>(input);
+
+            var output = maybe.GetValueOrFallback(-1);
+
+            Assert.That(output, Is.EqualTo(input));
+        }
     }
 }

@@ -29,5 +29,8 @@ namespace Dys
 
         public T GetValueOrDefault()
             => _HasValue ? _Value : default(T);
+
+        public T GetValueOrFallback(T fallbackValue)
+            => _HasValue ? _Value : fallbackValue;
     }
 }
