@@ -58,5 +58,53 @@ namespace Dys.Tests
 
             Assert.That(output.HasValue, Is.False);
         }
+
+        [Test]
+        public void Select_WhenEmpty_DoesNotCallSelector()
+        {
+            var maybe = new Maybe<int>();
+
+            bool wasCalled = false;
+
+            string func(int i)
+            {
+                wasCalled = true;
+                return i.ToString();
+            }
+
+            var output = maybe.Select(func);
+
+            Assert.That(wasCalled, Is.False);
+        }
+
+        [Test]
+        public void Select_WhenInitializedWithValue_CallsSelector()
+        {
+            var maybe = new Maybe<int>(42);
+
+            bool wasCalled = false;
+
+            string func(int i)
+            {
+                wasCalled = true;
+                return i.ToString();
+            }
+
+            var output = maybe.Select(func);
+
+            Assert.That(wasCalled, Is.True);
+        }
+
+        [Test]
+        [TestCase(0, "0")]
+        [TestCase(42, "42")]
+        public void Select_WithTestCases_ReturnsCorrectValues(int input, string expected)
+        {
+            var maybe = new Maybe<int>(input);
+
+            var output = maybe.Select(i => i.ToString()).Value;
+
+            Assert.That(output, Is.EqualTo(expected));
+        }
     }
 }
